@@ -1,19 +1,23 @@
 package assignment6;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 class ThreadedTicketClient implements Runnable {
 	String hostname = "127.0.0.1";
 	String threadname = "X";
 	TicketClient sc;
+	String input;
 
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
+
 	}
 
 	public void run() {
@@ -24,6 +28,9 @@ class ThreadedTicketClient implements Runnable {
 			PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+			input = in.readLine();
+
+			
 			echoSocket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,6 +60,6 @@ public class TicketClient {
 
 	void requestTicket() { // TODO thread.run()
 		tc.run();
-		System.out.println(hostName + "," + threadName + " got one ticket");
+		System.out.println(hostName + "," + threadName + " got one ticket location: " + tc.input);
 	}
 }

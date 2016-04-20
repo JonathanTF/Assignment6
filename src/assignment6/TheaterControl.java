@@ -30,7 +30,7 @@ public class TheaterControl {
 		// Integer[] worstLeftOrder ={128,127,126,125,124,123,122};
 		// Integer[] worstRightOrder = {101,102,103,104,105,106,107};
 		Integer[] worstSeatOrder = { 101, 128, 102, 127, 103, 126, 104, 125, 105, 124, 106, 123, 107, 122, 108, 121,
-				109, 120, 110, 119, 111, 118, 112, 117, 113, 116, 114, 155 };
+				109, 120, 110, 119, 111, 118, 112, 117, 113, 116, 114, 115 };
 		Integer[] worstBackSeat = { 101, 128, 102, 127, 103, 126, 104, 125, 105, 124, 106, 123, 107, 122 };
 		Integer[] worstAAseat = { 101, 128, 102, 127, 103, 104, 116, 117, 118 };
 		// fill the stack in worst -> best order

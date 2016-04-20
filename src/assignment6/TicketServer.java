@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import assignment6.TheaterControl.Seat;
+
 public class TicketServer {
 	static int PORT = 2222;
 
@@ -26,18 +28,41 @@ class ThreadedTicketServer implements Runnable {
 	String threadname = "X";
 	String testcase;
 	TicketClient sc;
+	Seat seat = null;
+	boolean full = false;
 
 	public void run() {
 		// TODO 422C
-		ServerSocket serverSocket;
+		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
-			Socket clientSocket = serverSocket.accept();
-			System.out.println("Handshake1");
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		} catch (IOException e) { // TODO Auto-generated catch block
-									// e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		full = false;
+		while (!full) {
+			try {
+
+				Socket clientSocket = serverSocket.accept();
+				System.out.println("Handshake 1");
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				// BufferedReader in = new BufferedReader(new
+				// InputStreamReader(clientSocket.getInputStream()));
+				seat = TestTicketOffice.theater.getASeat();
+				if (seat != null) {
+					out.write("Row: " + seat.row + " Num: " + seat.chair + "\n");
+					out.flush();
+				} else {
+					full = true;
+					out.write("FULLLLLLLLLLLLLLLLLLLLL\n");
+					out.flush();
+				}
+
+			} catch (IOException e) { // TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
 		}
 	}
 }
