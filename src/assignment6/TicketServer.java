@@ -13,8 +13,8 @@ public class TicketServer {
 	static int PORT = 2222;
 
 	// EE422C: no matter how many concurrent requests you get, // do not have
-	// more than three servers running concurrently final static int
-	// MAXPARALLELTHREADS = 3;
+	// more than three servers running concurrently
+	final static int MAXPARALLELTHREADS = 3;
 	public static void start(int portNumber) throws IOException {
 		PORT = portNumber;
 		Runnable serverThread = new ThreadedTicketServer();
@@ -29,6 +29,7 @@ class ThreadedTicketServer implements Runnable {
 	String testcase;
 	TicketClient sc;
 	Seat seat = null;
+	int CustNum = 0;
 	boolean full = false;
 
 	public void run() {
@@ -45,18 +46,19 @@ class ThreadedTicketServer implements Runnable {
 			try {
 
 				Socket clientSocket = serverSocket.accept();
-				System.out.println("Handshake 1");
+	
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 				// BufferedReader in = new BufferedReader(new
 				// InputStreamReader(clientSocket.getInputStream()));
 				seat = TestTicketOffice.theater.getASeat();
 				if (seat != null) {
+			
 					out.write("Row: " + seat.row + " Num: " + seat.chair + "\n");
 					out.flush();
 				} else {
 					full = true;
-					out.write("FULLLLLLLLLLLLLLLLLLLLL\n");
-					out.flush();
+					System.out.println("Sorry, we are full");
+					System.exit(0);
 				}
 
 			} catch (IOException e) { // TODO Auto-generated catch block

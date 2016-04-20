@@ -36,7 +36,7 @@ public class TheaterControl {
 		// fill the stack in worst -> best order
 		// AA seats at top
 		// special z and y
-		int rowI = 0; // z
+		int rowI = 0; //
 		int size = worstAAseat.length;
 		for (int k = 0; k < size; k++) {
 			Theater.push(new Seat(row[rowI], worstAAseat[k]));
@@ -59,14 +59,15 @@ public class TheaterControl {
 				Theater.push(new Seat(row[rowI], worstSeatOrder[k]));
 			}
 		}
-		//System.out.println(Theater);
+		// System.out.println(Theater);
 
 	}
-	public Seat getASeat(){
-		try{
-		Seat seat = Theater.pop();
-		return seat;
-		}catch(EmptyStackException e){
+
+	public Seat getASeat() {
+		try {
+			Seat seat = Theater.pop();
+			return seat;
+		} catch (EmptyStackException e) {
 			return null;
 		}
 
